@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "formulahendry.auto-rename-tag",
+        "solnurkarim.html-to-css-autocompletion",
+        "ritwickdey.liveserver",
+        "christian-kohler.path-intellisense",
+        "zhang-renyang.vscode-react",
+        "jeremyrajan.react-component",
+        "pranshuagrawal.create-component",
+        "yeet-bix.create-react-component-vscode",
+        "rodrigovallades.es7-react-js-snippets",
+        "hridoy.gsap-snippets",
+        "christian-kohler.npm-intellisense"
+    ]
+}

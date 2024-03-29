@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UHHH</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="snumber">Start Number:</label>
+                <input type="number" class="form-control" id="snumber" placeholder="Enter start number">
+            </div>
+            <div class="form-group">
+                <label for="Enumber">End Number:</label>
+                <input type="number" class="form-control" id="Enumber" placeholder="Enter end number">
+            </div>
+            <div class="form-group">
+                <label for="presentData">Present Data:</label>
+                <input type="text" class="form-control" id="presentData"
+                    placeholder="Enter present data (comma-separated)">
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+            <button type="submit" class="btn btn-secondary" id="viewDataBtn" data-toggle="modal"
+                data-target="#dataModal">View Data</button>
+            <button type="button" class="btn btn-danger" id="clearDataBtn">Clear Data</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModaltabe"
+                onclick="  $('#dataModaltabe').modal('show');">
+                View Data
+            </button>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="dataModaltabe" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataModalLabel">Student Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <p><strong>Sorted Data:</strong> <span id="sortedData"></span></p>
+          <p><strong>Present Data:</strong> <span id="presentDataModal"></span></p>
+          <p><strong>Absent Data:</strong> <span id="absentData"></span></p> -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Registration Number</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="absentTableBody" style="overflow-x:scroll;">
+                            <!-- Absent students will be appended here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataModalLabel">Data Results</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Sorted Data:</strong></p>
+                    <p id="sortedData"></p>
+                    <p><strong>Present Data:</strong></p>
+                    <p id="presentDataModal"></p>
+                    <p><strong>Absent Data:</strong></p>
+                    <p id="absentData"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        NameListJson = {
+            "442": "ROSHAN S",
+            "443": "SAIF ALI",
+            "444": "VETRISELVAN",
+            "445": "SLENTH. F",
+            "446": "ABHISHEK KUMAR",
+            "447": "SANJANA. K",
+            "448": "AKILAN MANIKANDAN",
+            "449": "NITEESH S V",
+            "450": "S.JANANI",
+            "451": "HARISH KUMAR K G",
+            "452": "ABINAYA R",
+            "453": "SIDARTH VELAN.J",
+            "454": "OTHI RAJA.M",
+            "455": "SREENIDHE B",
+            "456": "BHUVAN SHANKAR B",
+            "457": "G. DHINESH KHANNA",
+            "458": "JINESH RAM",
+            "459": "SACHIN G",
+            "460": "E.MAKESHWAR ELANGOVAN",
+            "461": "GOKUL SHAKTHI S",
+            "462": "SWAGATH G",
+            "463": "PUGAZH ARASAN E",
+            "464": "VISHNU KUMAR S",
+            "465": "A.AJAY",
+            "466": "KEERTHIVARMAN.P.S",
+            "467": "SHAMRAJ R",
+            "468": "SANTHOSH KUMAR",
+            "469": "NAGAMEENASHREE C",
+            "470": "JAWAHAR R P",
+            "471": "ASWIN S",
+            "472": "JAYADEV KUMAR B",
+            "473": "SHUBHAM KUMAR",
+            "475": "PRAKALYA M",
+            "476": "JOTHI PRAKASH B S",
+            "477": "R SANJAY KRISHNA",
+            "478": "V OVIYA",
+            "479": "SREELAKSHMI S",
+            "480": "ANIKA SEETHARAMAN",
+            "481": "ADVIKA SEETHARAMAN",
+            "482": "D.BARATH KANNAN",
+            "483": "POOJA SREE",
+            "484": "PANKAJ SEERVI .A",
+            "485": "HARISH S",
+            "486": "BAVEN AR K GOVIN",
+            "487": "MYTHRIA VISHAL S",
+            "488": "AKASH KHANNA A",
+            "489": "NITHIN RAJ N",
+            "490": "N M VISHRANTH",
+            "491": "TRILOK SRINIVASAN",
+            "492": "SASHMITHA BABU",
+            "493": "PRASANNA I",
+            "494": "S HARISHANKAR",
+            "495": "SVANIK SELVA KUMAR",
+            "496": "ADITYA RAI",
+            "497": "J. R. SANTHOSH",
+            "498": "TARUNIKA SRI H",
+            "499": "SIDDARTH REDDY S V",
+            "500": "SANJAY RAJAN N T",
+            "501": "JAISACHIN B",
+            "502": "P.G.PRIYADHARSHINI",
+            "503": "ADITHYA KUMAR U",
+            "504": "NIKHIL RAMANATHAN"
+        }
+       
+        document.getElementById('dataForm').addEventListener('submit', function (event) {
+            event.preventDefault();  
+            let snumber = parseInt(document.getElementById('snumber').value);
+            let Enumber = parseInt(document.getElementById('Enumber').value);
+            let presentDataInput = document.getElementById('presentData').value;
+            let presentData = presentDataInput.split(',').map(item => parseInt(item.trim()));
+            let sortedData = presentData.slice().sort((a, b) => a - b);
+            let NewPresentData = [];
+            let absent = [];
+            // Logic to find present and absent numbers
+            for (let data = snumber; data <= Enumber; data++) {
+                if (sortedData.includes(data)) {
+                    NewPresentData.push(data);
+                } else {
+                    absent.push(data);
+                }
+            }
+            // Display data in modal
+            document.getElementById('sortedData').textContent = sortedData.join(', ');
+            document.getElementById('presentDataModal').textContent = NewPresentData.join(', ');
+            document.getElementById('absentData').textContent = absent.join(', ');
+            // Show modal
+            $('#dataModal').modal('show');
+            // Update absent table
+            let absentTableBody = document.getElementById('absentTableBody');
+            absentTableBody.innerHTML = ''; // Clear  content
+            absent.forEach(regNumber => {
+                let tr = document.createElement('tr');
+                let tdRegNumber = document.createElement('td');
+                let tdName = document.createElement('td');
+                tdRegNumber.textContent = regNumber;
+                tdName.textContent = NameListJson[regNumber] || "N/A";  
+                tr.appendChild(tdRegNumber);
+                tr.appendChild(tdName);
+                absentTableBody.appendChild(tr);
+            });
+        }); 
+        document.getElementById('clearDataBtn').addEventListener('click', function () {
+            // Clear form inputs
+            document.getElementById('snumber').value = '';
+            document.getElementById('Enumber').value = '';
+            document.getElementById('presentData').value = '';
+        });
+    </script>
+</body>
+</html>
