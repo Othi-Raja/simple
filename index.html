@@ -45,7 +45,7 @@
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModaltabe"
                 onclick="  $('#dataModaltabe').modal('show');">
-                View Data
+                Table Data
             </button>
         </form>
     </div>
@@ -185,7 +185,7 @@
             let sortedData = presentData.slice().sort((a, b) => a - b);
             let NewPresentData = [];
             let absent = [];
-            // Logic to find present and absent numbers
+            //  find present and absent numbers
             for (let data = snumber; data <= Enumber; data++) {
                 if (sortedData.includes(data)) {
                     NewPresentData.push(data);
