@@ -31,11 +31,11 @@
             </div>
             <div class="form-group">
                 <label for="Enumber">End Number:</label>
-                <input type="number" class="form-control" id="Enumber" placeholder="Enter end number">
+                <input type="number" class="form-control border-0" id="Enumber" placeholder="Enter end number">
             </div>
             <div class="form-group">
                 <label for="presentData">Present Data:</label>
-                <input type="text" class="form-control" id="presentData"
+                <input type="text" class="form-control border-0" id="presentData"
                     placeholder="Enter present data (comma-separated)">
             </div>
             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -89,16 +89,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="dataModalLabel">Data Results</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Sorted Data:</strong></p>
+                    <p><strong>Sorted Data: <span id="sortedDataCount"></span></strong></p>
                     <p id="sortedData"></p>
-                    <p><strong>Present Data:</strong></p>
+                    <p><strong>Present Data: (<span id="presentDataCount"></span>)</strong></p>
                     <p id="presentDataModal"></p>
-                    <p><strong>Absent Data:</strong></p>
+                    <p><strong>Absent Data: (<span id="absentDataCount"></span>)</strong></p>
                     <p id="absentData"></p>
                 </div>
                 <div class="modal-footer">
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -175,9 +175,8 @@
             "503": "ADITHYA KUMAR U",
             "504": "NIKHIL RAMANATHAN"
         }
-       
         document.getElementById('dataForm').addEventListener('submit', function (event) {
-            event.preventDefault();  
+            event.preventDefault();
             let snumber = parseInt(document.getElementById('snumber').value);
             let Enumber = parseInt(document.getElementById('Enumber').value);
             let presentDataInput = document.getElementById('presentData').value;
@@ -194,9 +193,12 @@
                 }
             }
             // Display data in modal
-            document.getElementById('sortedData').textContent = sortedData.join(', ');
+            document.getElementById('sortedData').textContent =  sortedData.join(', ');
+            // document.getElementById('sortedDataCount').textContent =`(${ sortedData.length || 0})`;
+            document.getElementById('presentDataCount').textContent = NewPresentData.length|| 0;
             document.getElementById('presentDataModal').textContent = NewPresentData.join(', ');
             document.getElementById('absentData').textContent = absent.join(', ');
+            document.getElementById('absentDataCount').textContent = absent.length ||0;
             // Show modal
             $('#dataModal').modal('show');
             // Update absent table
@@ -207,12 +209,12 @@
                 let tdRegNumber = document.createElement('td');
                 let tdName = document.createElement('td');
                 tdRegNumber.textContent = regNumber;
-                tdName.textContent = NameListJson[regNumber] || "N/A";  
+                tdName.textContent = NameListJson[regNumber] || "N/A";
                 tr.appendChild(tdRegNumber);
                 tr.appendChild(tdName);
                 absentTableBody.appendChild(tr);
             });
-        }); 
+        });
         document.getElementById('clearDataBtn').addEventListener('click', function () {
             // Clear form inputs
             document.getElementById('snumber').value = '';
