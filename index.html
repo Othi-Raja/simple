@@ -20,6 +20,10 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+        #dateandtime{
+            font-size: 12px;
+            color: grey;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +92,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="dataModalLabel">Data Results</h5>
+                    <h5 class="modal-title text-black-50" id="dataModalLabel">Data Results  <span id="dateandtime"></span></h5>
                     <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -180,7 +184,7 @@
             let snumber = parseInt(document.getElementById('snumber').value);
             let Enumber = parseInt(document.getElementById('Enumber').value);
             let presentDataInput = document.getElementById('presentData').value;
-            let presentData = presentDataInput.split(',').map(item => parseInt(item.trim()));
+            let presentData = presentDataInput.split(' ').map(item => parseInt(item.trim()));
             let sortedData = presentData.slice().sort((a, b) => a - b);
             let NewPresentData = [];
             let absent = [];
@@ -192,9 +196,10 @@
                     absent.push(data);
                 }
             }
+            const dateandtime = new Date().toDateString(new Date)
             // Display data in modal
             document.getElementById('sortedData').textContent =  sortedData.join(', ');
-            // document.getElementById('sortedDataCount').textContent =`(${ sortedData.length || 0})`;
+            document.getElementById('dateandtime').textContent = dateandtime ;
             document.getElementById('presentDataCount').textContent = NewPresentData.length|| 0;
             document.getElementById('presentDataModal').textContent = NewPresentData.join(', ');
             document.getElementById('absentData').textContent = absent.join(', ');
